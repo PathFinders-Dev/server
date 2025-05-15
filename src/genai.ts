@@ -57,7 +57,9 @@ export async function analysisWithAi() {
   });
   console.log("Response: ", response);
   try {
-    return JSON.parse(response.text!);
+    return JSON.parse(
+      response.text?.replace("```json", "").replace("```", "")!
+    );
   } catch (error) {
     console.log(error);
     return null;

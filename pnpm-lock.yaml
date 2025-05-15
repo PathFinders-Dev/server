@@ -11,6 +11,9 @@ importers:
       '@google-cloud/aiplatform':
         specifier: ^4.1.0
         version: 4.2.0
+      '@google-cloud/vertexai':
+        specifier: ^1.10.0
+        version: 1.10.0
       '@hono/node-server':
         specifier: ^1.14.1
         version: 1.14.1(hono@4.7.9)
@@ -350,6 +353,10 @@ packages:
   '@google-cloud/aiplatform@4.2.0':
     resolution: {integrity: sha512-BfLgWyrAcRThMTzC0P/1h9dWDb2Ww12OUtvD/ZKyM4d3v8d9xK/vmh6zaGCpWxMCdOyIDFCyyCTHAuMy5u+Ozg==}
     engines: {node: '>=18'}
+
+  '@google-cloud/vertexai@1.10.0':
+    resolution: {integrity: sha512-HqYqoivNtkq59po8m7KI0n+lWKdz4kabENncYQXZCX/hBWJfXtKAfR/2nUQsP+TwSfHKoA7zDL2RrJYIv/j3VQ==}
+    engines: {node: '>=18.0.0'}
 
   '@grpc/grpc-js@1.13.3':
     resolution: {integrity: sha512-FTXHdOoPbZrBjlVLHuKbDZnsTxXv2BlHF57xw6LuThXacXvtkahEPED0CKMk6obZDf65Hv4k3z62eyPNpvinIg==}
@@ -1176,6 +1183,13 @@ snapshots:
     dependencies:
       google-gax: 5.0.1-rc.1
     transitivePeerDependencies:
+      - supports-color
+
+  '@google-cloud/vertexai@1.10.0':
+    dependencies:
+      google-auth-library: 9.15.1
+    transitivePeerDependencies:
+      - encoding
       - supports-color
 
   '@grpc/grpc-js@1.13.3':

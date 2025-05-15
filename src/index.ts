@@ -5,7 +5,7 @@ import { zValidator } from "@hono/zod-validator";
 import { z } from "zod";
 import { serve } from "@hono/node-server";
 import db from "./db/index.js";
-import { runAnalysis } from "./gemeni.js";
+import { runAnalysis } from "./vertex-ai.js";
 import { objectsCoordinatesTable } from "./db/schema.js";
 
 const app = new Hono();
@@ -77,7 +77,7 @@ app.get(
     return {
       onOpen(_event, ws) {
         intervalId = setInterval(() => {
-          runAnalysis().then((analysisData) => {
+            runAnalysis().then((analysisData) => {
             ws.send(JSON.stringify(analysisData));
           });
         }, 5000);

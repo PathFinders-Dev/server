@@ -2,7 +2,6 @@ import { GoogleAuth } from "google-auth-library";
 import db from "./db/index.js";
 import { gte } from "drizzle-orm";
 import { objectsCoordinatesTable } from "./db/schema.js";
-import "dotenv"
 
 export interface Detection {
   id: never;
@@ -61,11 +60,6 @@ Respond in JSON format:
 
   const auth = new GoogleAuth({
     scopes: "https://www.googleapis.com/auth/cloud-platform",
-    credentials: {
-      client_email: process.env.CLIENT_EMAIL,
-      private_key: process.env.PRIVATE_KEY,
-    },
-    projectId: process.env.PROJECT_ID,
   });
   const client = await auth.getClient();
 

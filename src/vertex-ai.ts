@@ -7,7 +7,7 @@ import {objectsCoordinatesTable} from "./db/schema.js";
 
 const project = 'solutionchallenge-pioneers';
 const location = 'us-central1';
-const textModel =  'gemini-1.0-pro';
+const textModel =  'gemini-2.0-flash-lite';
 const visionModel = 'gemini-1.0-pro-vision';
 
 const vertexAI = new VertexAI({project: project, location: location});

@@ -3,9 +3,10 @@ import type { Detection } from "./gemeni.js";
 import db from "./db/index.js";
 import { objectsCoordinatesTable } from "./db/schema.js";
 import { gte } from "drizzle-orm";
+import "dotenv/config";
 
 const ai = new GoogleGenAI({
-  apiKey: "AIzaSyB86QPBD149rQjJNGsXrbn5P8DXPz_OGKQ",
+  apiKey: process.env.GEMINI_API_KEY,
 });
 
 const prompt = `Analyze fire/smoke detection alerts with these strict requirements:
@@ -55,6 +56,6 @@ export async function analysisWithAi() {
     model: "gemini-2.0-flash",
     contents: `${prompt} ${JSON.stringify(detectionData)}`,
   });
-  console.log(response.text);
-  return response.text;
+  console.log(JSON.parse(response.text!));
+  return JSON.parse(response.text!);
 }

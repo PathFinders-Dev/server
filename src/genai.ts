@@ -55,6 +55,6 @@ export async function analysisWithAi() {
     model: "gemini-2.0-flash",
     contents: `${prompt} ${JSON.stringify(detectionData)}`,
   });
-  console.log(JSON.parse(response.text!));
+  console.log(response.text);
   return JSON.parse(response.text!);
 }

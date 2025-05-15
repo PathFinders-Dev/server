@@ -20,3 +20,8 @@ export const objectsCoordinatesTable = pgTable("objectsCoordinates", {
     longitude: real("longitude").notNull(),
     createdAt: timestamp("created_at").notNull().defaultNow(),
 });
+export const analysisTable = pgTable("analysis", {
+    id: serial("id").primaryKey(),
+    data: text('data'),
+    createdAt: timestamp("created_at").notNull().defaultNow(),
+});

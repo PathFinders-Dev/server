@@ -5,7 +5,6 @@ import { zValidator } from "@hono/zod-validator";
 import { z } from "zod";
 import { serve } from "@hono/node-server";
 import db from "./db/index.js";
-import { runAnalysis } from "./vertex-ai.js";
 import { objectsCoordinatesTable } from "./db/schema.js";
 import { analysisWithAi } from "./genai.js";
 

@@ -3,11 +3,9 @@ import db from "./db/index.js";
 import { objectsCoordinatesTable } from "./db/schema.js";
 import { gte } from "drizzle-orm";
 import "dotenv/config";
-
 const ai = new GoogleGenAI({
-  apiKey: process.env.GEMINI_API_KEY,
+    apiKey: process.env.GEMINI_API_KEY,
 });
-
 const prompt = `Analyze fire/smoke detection alerts with these strict requirements:
 
 1. For EACH detection:
@@ -42,19 +40,18 @@ Example Transformation:
 }
 
 NOW PROCESS THIS INPUT:`;
-
 export async function analysisWithAi() {
-  const detectionData = await db.query.objectsCoordinatesTable.findMany({
-    where: gte(objectsCoordinatesTable.createdAt, new Date(Date.now() - 5000)),
-    with: {
-      id: false,
-      createdAt: false,
-    },
-  });
-  const response = await ai.models.generateContent({
-    model: "gemini-2.0-flash",
-    contents: `${prompt} ${JSON.stringify(detectionData)}`,
-  });
-  console.log(JSON.parse(response.text!));
-  return JSON.parse(response.text!);
+    const detectionData = await db.query.objectsCoordinatesTable.findMany({
+        where: gte(objectsCoordinatesTable.createdAt, new Date(Date.now() - 5000)),
+        with: {
+            id: false,
+            createdAt: false,
+        },
+    });
+    const response = await ai.models.generateContent({
+        model: "gemini-2.0-flash",
+        contents: `${prompt} ${JSON.stringify(detectionData)}`,
+    });
+    console.log(JSON.parse(response.text));
+    return JSON.parse(response.text);
 }

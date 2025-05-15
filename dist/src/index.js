@@ -5,15 +5,12 @@ import { zValidator } from "@hono/zod-validator";
 import { z } from "zod";
 import { serve } from "@hono/node-server";
 import db from "./db/index.js";
-import { runAnalysis } from "./vertex-ai.js";
 import { objectsCoordinatesTable } from "./db/schema.js";
+import { analysisWithAi } from "./genai.js";
 const app = new Hono();
 const { injectWebSocket, upgradeWebSocket } = createNodeWebSocket({ app });
 app.use("*", cors({
-    origin: [
-        "http://localhost:3000",
-        "https://solutionchallenge-pioneers.web.app",
-    ],
+    origin: "*",
 }));
 // Check API is Healthy
 app.get("/", (c) => {
@@ -56,10 +53,10 @@ app.get("/ws", upgradeWebSocket(() => {
     return {
         onOpen(_event, ws) {
             intervalId = setInterval(() => {
-                runAnalysis().then((analysisData) => {
+                analysisWithAi().then((analysisData) => {
                     ws.send(JSON.stringify(analysisData));
                 });
-            }, 5000);
+            }, 10000);
         },
         onMessage(event) {
             console.log(`Message from client: ${event.data}`);

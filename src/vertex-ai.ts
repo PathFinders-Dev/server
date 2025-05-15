@@ -2,7 +2,7 @@ import {HarmBlockThreshold, HarmCategory, VertexAI} from "@google-cloud/vertexai
 import type {Detection} from "./gemeni.js";
 import db from "./db/index.js";
 import {gte} from "drizzle-orm";
-import {objectsCoordinatesTable} from "./db/schema.js";
+import {analysisTable, objectsCoordinatesTable} from "./db/schema.js";
 
 
 const project = 'solutionchallenge-pioneers';
@@ -75,6 +75,11 @@ export async function runAnalysis() {
             createdAt: false,
         },
     });
+    if(!detectionData || detectionData.length === 0) {
+        return {}
+    }
 
-    return await generateContent(detectionData);
+    const result =  await generateContent(detectionData);
+    await db.insert(analysisTable).values({data:JSON.stringify(result)})
+    return result;
 }

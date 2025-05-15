@@ -66,12 +66,12 @@ export async function analysisWithAi() {
   const content = response.candidates[0].content;
   console.log(
     "Response: ",
-    content.parts?.[0]?.text?.replaceAll("```json", "").replaceAll("```", "")
+    content.parts?.[0]?.text?.replaceAll("`", "").replaceAll("json", "")
   );
 
   try {
     return JSON.parse(
-      content.parts?.[0]?.text?.replaceAll("```json", "").replaceAll("```", "")!
+      content.parts?.[0]?.text?.replaceAll("`", "").replaceAll("json", "")!
     );
   } catch (error) {
     console.log(error);

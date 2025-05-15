@@ -50,15 +50,28 @@ export async function analysisWithAi() {
       id: false,
       createdAt: false,
     },
+    limit: 10,
   });
+  console.log(`${prompt} ${JSON.stringify(detectionData)}`);
   const response = await ai.models.generateContent({
     model: "gemini-2.0-flash",
     contents: `${prompt} ${JSON.stringify(detectionData)}`,
   });
-  console.log("Response: ", response);
+
+  if (!response.candidates?.[0]?.content) {
+    console.log("No valid response received");
+    return null;
+  }
+
+  const content = response.candidates[0].content;
+  console.log(
+    "Response: ",
+    content.parts?.[0]?.text?.replaceAll("```json", "").replaceAll("```", "")
+  );
+
   try {
     return JSON.parse(
-      response.text?.replace("```json", "").replace("```", "")!
+      content.parts?.[0]?.text?.replaceAll("```json", "").replaceAll("```", "")!
     );
   } catch (error) {
     console.log(error);

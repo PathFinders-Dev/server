@@ -64,7 +64,7 @@ Respond in JSON format:
   const client = await auth.getClient();
 
   const project = "solutionchallenge-pioneers";
-  const region = "asia-southeast1";
+  const region = "us-central1";
   const endpoint = `https://${region}-aiplatform.googleapis.com/v1/projects/${project}/locations/${region}/publishers/google/models/gemini-1.5-flash:predict`;
 
   const requestBody = {
